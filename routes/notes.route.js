@@ -17,7 +17,7 @@ notesRouter.post("/add", auth, async (req, res) => {
     try {
         const note = new NoteModel(req.body);
         await note.save();
-        res.status(200).json({ "msg": `${req.body.userName}'s Note Added Successfully` })
+        res.status(200).json({ "msg": `${req.body.userName}'s Note Added Successfully` ,note})
     } catch (error) {
         res.status(400).json({ "Error": error.message })
     }
