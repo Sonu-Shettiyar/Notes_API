@@ -40,11 +40,17 @@ userRouter.post("/login", async (req,res) => {
 userRouter.post("/register",async (req,res) => {
      
     try {
-        const hash = bcrypt.hashSync(req.body.pass, 5);
-        const user = new UserModel({...req.body,pass:hash});
-        await user.save();
-        console.log("after register",user)
-        res.json({"msg":`${req.body.name} Registered succesfully`})
+        
+        bcrypt.hash(req.body.pass, 5, async (err,hash) => {
+            if (err) {
+                res.json({"error":"Incorrect format of credentials"})
+            } else {
+                
+                const user = new UserModel({...req.body,pass:hash});
+                await user.save();
+                res.json({"msg":`${req.body.name} Registered succesfully`})
+            }
+        });
     } catch (error) {
         res.json({msg:error})
         
