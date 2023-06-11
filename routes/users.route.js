@@ -3,7 +3,8 @@ const userRouter = express.Router();
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 require("dotenv").config();
-
+const cors = require("cors");
+userRouter.use(cors());
 const { UserModel } = require("../models/users.model")
 userRouter.post("/login", async (req,res) => {
 

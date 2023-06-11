@@ -2,6 +2,8 @@ const express = require("express");
 const { auth } = require("../middlewares/auth.middleware");
 const { NoteModel } = require("../models/notes.model");
 const notesRouter = express.Router();
+const cors = require("cors");
+notesRouter.use(cors());
 
 notesRouter.get("/", async (req, res) => {
     try {
